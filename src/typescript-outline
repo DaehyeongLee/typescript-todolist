@@ -12,3 +12,19 @@
   1) noImplicitAny 킬 경우 명시적으로 타입 지정해줘야함
   2) strictNullChecks 킬 경우 모든 타입에 자동으로 포함되는 null, undefined 가 포함되지 않음
   3) noImplicitReturns 킬 경우 함수 내에서 모든 코드가 값을 리턴하지 않으면, 컴파일 에러를 발생시킴
+
+- Function 사용법
+  1) type:
+    type EatType = (food: string) => void;
+  2) interface:
+    interface IEatType {
+      (food: string): void;
+    }
+ - Array 사용법
+  1) type:
+    type PersonList = string[];
+  2) interface:
+    interface IPersonList {
+      [index: number]: string;
+    }
+  
