@@ -33,7 +33,13 @@ function TodoHead() {
   return (
     <Head>
         <h1>{dateString}</h1>
-        <h4>{dayName}</h4>
+        <h4>{dayName === "월요일" ?
+            "월요일엔 아마 바쁘지 않을까" : dayName === "화요일" ?
+            "화요일도 성급해 보이지 안 그래" : dayName === "수요일" ?
+            "수요일은 뭔가 어정쩡한 느낌" : dayName === "목요일" ?
+            "목요일은 그냥 내가 왠지 싫어" : dayName === "금요일" ?
+            "우~ 금요일에 시간 어때요" : dayName
+        }</h4>
         <div className = "task">남은 할 일: n 개</div>
     </Head>
   )

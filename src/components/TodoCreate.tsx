@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
+import { useStoreActions, useStoreState } from "../store";
 
 interface buttonProps {
     open: boolean;
@@ -101,11 +102,20 @@ function TodoCreate() {
     const [open, setOpen] = useState(false)
     const [inputValue, setInputValue] = useState("")
 
+    const todos = useStoreState(state => state.todos.todos);
+    const createTodo = useStoreActions((actions) => actions.todos.createTodo);
+
     const onToggle = () => setOpen(!open)
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         
+        createTodo({
+            id: todos.length > 0 ? (parseInt(todos[todos.length-1].id) + 1).toString() : "0",
+            text: inputValue,
+            done: false
+        });
+
         setOpen(false)
         setInputValue("")
     }

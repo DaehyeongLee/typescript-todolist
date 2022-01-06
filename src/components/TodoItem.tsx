@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { MdDone, MdModeEdit, MdDelete } from "react-icons/md";
+import { MdDone, MdModeEdit, MdOutlineCheckBox, MdDelete } from "react-icons/md";
+import { useStoreActions } from "../store";
 
 interface props {
   id: string;
@@ -13,7 +14,6 @@ interface checked {
 }
 
 const Actions = styled.div`
-  
   display: none;
   flex-direction: row;
   align-items: center;
@@ -22,7 +22,6 @@ const Actions = styled.div`
   font-size: 24px;
   cursor: pointer;
   color: #dee2e6;
-
 `;
 
 const EditAction = styled.div`
@@ -37,6 +36,15 @@ const DeleteAction = styled.div`
   &:hover {
     color: #ff6b6b;
   }
+`;
+
+const Input = styled.input`
+  font-size: 16px;
+  padding: 5px 0px;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  width: 381px;
+  outline: none;
 `;
 
 const TodoItemBlock = styled.div`
@@ -83,23 +91,50 @@ const Text = styled.div`
 `;
 
 function TodoItem(props: props) {
-  const onToggle = () => {};
 
-  const onEdit = () => {};
-  const onRemove = () => {};
+  const [selectedEdit, setSelectedEdit] = useState("-1")
+  const [inputValue, setInputValue] = useState("")
 
+  const deleteTodo = useStoreActions((actions) => actions.todos.deleteTodo);
+  const checkTodo = useStoreActions((actions) => actions.todos.checkTodo);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
+  const onToggle = (id: string) => {
+    checkTodo(id)
+  };
+  const onEdit = (id: string, text: string) => {
+    setSelectedEdit(id)
+    setInputValue(text)
+  };
+  const onRemove = (id: string) => {
+    deleteTodo(id)
+  };
+  const onSubmit = () => {
+    setSelectedEdit("-1")
+  };
+ 
   return (
     <TodoItemBlock>
-      <CheckCircle done={props.done} onClick={onToggle}>
+      <CheckCircle done={props.done} onClick={() => onToggle(props.id)}>
         {props.done && <MdDone />}
       </CheckCircle>
-      <Text done={props.done}>{props.text}</Text>
+      
+      {props.id === selectedEdit ? (
+        <Input onChange={onChange} value={inputValue} />
+      ) : (
+        <Text done={props.done}>{props.text}</Text>
+      )}
+      
       <Actions>
         <EditAction>
-          <MdModeEdit onClick={onEdit} />
+          {props.id === selectedEdit ? (
+            <MdOutlineCheckBox onClick={onSubmit} />
+          ) : (
+            <MdModeEdit onClick={() => onEdit(props.id, props.text)} />
+          )}
         </EditAction>
         <DeleteAction>
-          <MdDelete onClick={onRemove} />
+          <MdDelete onClick={() => onRemove(props.id)} />
         </DeleteAction>
       </Actions>
     </TodoItemBlock>
