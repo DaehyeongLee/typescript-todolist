@@ -1,30 +1,42 @@
-import React from 'react'
-import styled, { css } from 'styled-components';
-import { MdDone, MdDelete } from 'react-icons/md';
+import React from "react";
+import styled, { css } from "styled-components";
+import { MdDone, MdModeEdit, MdDelete } from "react-icons/md";
 
 interface props {
-    id: string;
-    text: string;
-    done: boolean;
-    key: string;
+  id: string;
+  text: string;
+  done: boolean;
+  key: string;
 }
 interface checked {
-    done: boolean;
+  done: boolean;
 }
 
-const Remove = styled.div`
-  display: flex;
+const Actions = styled.div`
+  
+  display: none;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 
   font-size: 24px;
   cursor: pointer;
   color: #dee2e6;
-  
+
+`;
+
+const EditAction = styled.div`
+  margin-right: 3px;
+
+  &:hover {
+    color: #38d9a9;
+  }
+`;
+
+const DeleteAction = styled.div`
   &:hover {
     color: #ff6b6b;
   }
-  display: none;
 `;
 
 const TodoItemBlock = styled.div`
@@ -32,8 +44,8 @@ const TodoItemBlock = styled.div`
   align-items: center;
   padding: 11px 0px;
   &:hover {
-    ${Remove} {
-      display: initial;
+    ${Actions} {
+      display: flex;
     }
   }
 `;
@@ -50,7 +62,7 @@ const CheckCircle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   ${(props: checked) =>
     props.done &&
     css`
@@ -71,28 +83,27 @@ const Text = styled.div`
 `;
 
 function TodoItem(props: props) {
+  const onToggle = () => {};
 
-    const onToggle = () => {
-        
-    }
+  const onEdit = () => {};
+  const onRemove = () => {};
 
-    const onRemove = () => {
-        
-    }
-
-    return (
-        <TodoItemBlock>
-            <CheckCircle done={props.done} onClick={onToggle}>
-                {props.done && <MdDone />}
-            </CheckCircle>
-            <Text done={props.done}>
-                {props.text}
-            </Text>
-            <Remove onClick={onRemove}>
-                <MdDelete />
-            </Remove>
-        </TodoItemBlock>
-    )
+  return (
+    <TodoItemBlock>
+      <CheckCircle done={props.done} onClick={onToggle}>
+        {props.done && <MdDone />}
+      </CheckCircle>
+      <Text done={props.done}>{props.text}</Text>
+      <Actions>
+        <EditAction>
+          <MdModeEdit onClick={onEdit} />
+        </EditAction>
+        <DeleteAction>
+          <MdDelete onClick={onRemove} />
+        </DeleteAction>
+      </Actions>
+    </TodoItemBlock>
+  );
 }
 
-export default TodoItem
+export default TodoItem;
