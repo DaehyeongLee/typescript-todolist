@@ -3,13 +3,13 @@ import React from "react";
 function Example() {
 
   // "noImplicitAny": false일 경우 에러 발생 안함. true일경우 에러 발생 (any로 암묵적으로 추론되는 변수에 대하여 오류를 발생)
-  const add = (a, b) => {
-    return a + b;
-  };
+  // const add = (a, b) => {
+  //   return a + b;
+  // };
 
   // "strictNullChecks": false일 경우 에러 발생 안함. true일경우 에러 발생 (null과 undefined와 같은 값은 다른 타입의 값에 할당할 수 없게 함)
-  const a: null = null;
-  const b: string = a;
+  // const a: null = null;
+  // const b: string = a;
 
   const user = {
     name: "Daniel",
@@ -72,7 +72,7 @@ function Example() {
 
   return (
     <div>
-      {add(3, 5)}
+      {/* {add(3, 5)} */}
       {/* {user.location} --> 자바스크립트의 경우 undefined를 반환, 타입스크립트는 오류 발생*/}
       {getFavoriteNumber(100)}
       {printCoord({x: 10, y: 20})}

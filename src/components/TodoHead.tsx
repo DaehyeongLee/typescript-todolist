@@ -14,7 +14,7 @@ const Head = styled.div`
       font-size: 18px;
       font-weight: bold;
   }
-  padding: 30px 30px;
+  padding: 20px 30px;
   border-bottom: 1px solid #dcdcdc;
 `;
 

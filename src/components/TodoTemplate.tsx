@@ -13,7 +13,7 @@ const Template = styled.div`
     flex-direction: column;
 `;
 
-function TodoTemplate({children}) {
+function TodoTemplate({children} : any) {
     return (
         <Template>
             {children}
