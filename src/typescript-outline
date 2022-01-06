@@ -1,0 +1,14 @@
+- 타입스크립트 사용의 목적은?
+  TypeScript 쓰면, 버그가 싹 다 사라진다. -> x
+  TypeScript 쓰면, Test 작성 안해도 된다. -> x
+  --> ypeScript 로 타이핑을 잘하면, 런타임 전에 미리 알 수 있는 오류도 있다.
+
+- 타입스크립트의 타입 시스템
+  1) 컴파일러에게 사용하는 타입을 명시적으로 알려줌 --> 명시적으로 타입 지정 가능
+  2) 컴파일러가 자동으로 타입을 추론 --> 명시적으로 지정 안할 경우 자동으로 타입 추론
+  이때, 추론을 할 경우 any타입으로 지정되는 경우가 있는데 이를 방지할 수 있다. "noImplicitAny" : true ---> 명시적으로 타입 지정하도록 유도
+
+- noImplicitAny, strictNullChecks, noImplicitReturns
+  1) noImplicitAny 킬 경우 명시적으로 타입 지정해줘야함
+  2) strictNullChecks 킬 경우 모든 타입에 자동으로 포함되는 null, undefined 가 포함되지 않음
+  3) noImplicitReturns 킬 경우 함수 내에서 모든 코드가 값을 리턴하지 않으면, 컴파일 에러를 발생시킴
