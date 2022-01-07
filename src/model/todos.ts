@@ -14,8 +14,26 @@ export interface TodosModel {
   updateTodo: Action<TodosModel, Todo>
 }
 
+const initialTodos = [
+    {
+        id: "0",
+        text: "타입스크립트 TodoList 만들기",
+        done: true
+    },
+    {
+        id: "1",
+        text: "타입스크립트 세미나 준비하기",
+        done: true
+    },
+    {
+        id: "2",
+        text: "세미나 성공적으로 마치기",
+        done: false
+    }
+]
+
 const todos: TodosModel = {
-  todos: [],
+  todos: initialTodos,
   createTodo: action((state, payload) => {
     state.todos.push(payload);
   }),
