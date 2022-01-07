@@ -3,7 +3,7 @@ import model, { StoreModel } from "./model";
 
 const { useStoreActions, useStoreState, useStoreDispatch } = createTypedHooks<StoreModel>();
 
-export { useStoreActions, useStoreDispatch, useStoreState };
+export { useStoreActions, useStoreState, useStoreDispatch };
 
 const store = createStore(model);
 

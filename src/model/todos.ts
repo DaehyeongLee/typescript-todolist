@@ -11,6 +11,7 @@ export interface TodosModel {
   createTodo: Action<TodosModel, Todo>;
   deleteTodo: Action<TodosModel, string>;
   checkTodo: Action<TodosModel, string>;
+  updateTodo: Action<TodosModel, Todo>
 }
 
 const todos: TodosModel = {
@@ -22,10 +23,15 @@ const todos: TodosModel = {
     state.todos.splice(state.todos.findIndex(todo => todo.id === payload), 1);
   }),
   checkTodo: action((state, payload) => {
-    state.todos.map(todo => 
-     (todo.id === payload) ? { ...todo, done: !todo.done} : todo
+    state.todos = state.todos.map(todo => 
+     (todo.id === payload) ? { ...todo, done: !todo.done } : todo
     )
-  })
+  }),
+  updateTodo: action((state, payload) => {
+    state.todos = state.todos.map(todo => 
+     (todo.id === payload.id) ? { ...todo, text: payload.text } : todo
+    )
+  }),
 };
 
 export default todos;

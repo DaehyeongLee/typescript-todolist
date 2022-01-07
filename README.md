@@ -1,6 +1,6 @@
 TypeScript, React를 사용한 TodoList 입니다. 
 
-Front: **React, TypeScript, Easy Peasy** 
+Front: **React, TypeScript, Easy Peasy, Styled-Component** 
 
 ----------------------------------------
 

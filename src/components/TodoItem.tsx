@@ -97,6 +97,7 @@ function TodoItem(props: props) {
 
   const deleteTodo = useStoreActions((actions) => actions.todos.deleteTodo);
   const checkTodo = useStoreActions((actions) => actions.todos.checkTodo);
+  const updateTodo = useStoreActions((actions) => actions.todos.updateTodo);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
   const onToggle = (id: string) => {
@@ -109,7 +110,12 @@ function TodoItem(props: props) {
   const onRemove = (id: string) => {
     deleteTodo(id)
   };
-  const onSubmit = () => {
+  const onSubmit = (id: string) => {
+    updateTodo({
+        id: id,
+        text: inputValue,
+        done: props.done
+    })
     setSelectedEdit("-1")
   };
  
@@ -128,7 +134,7 @@ function TodoItem(props: props) {
       <Actions>
         <EditAction>
           {props.id === selectedEdit ? (
-            <MdOutlineCheckBox onClick={onSubmit} />
+            <MdOutlineCheckBox onClick={() => onSubmit(props.id)} />
           ) : (
             <MdModeEdit onClick={() => onEdit(props.id, props.text)} />
           )}

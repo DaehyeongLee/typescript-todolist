@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useStoreState } from "../store";
 
 const Head = styled.div`
   h1 {
@@ -20,8 +21,10 @@ const Head = styled.div`
 
 function TodoHead() {
 
-  const today = new Date();
+  const todos = useStoreState(state => state.todos.todos);
+  const unDoneTodos = todos.filter(todo => todo.done === false)
 
+  const today = new Date();
   const dateString = today.toLocaleString("ko-KR", {
     year: "numeric",
     month: "long",
@@ -40,7 +43,7 @@ function TodoHead() {
             "목요일은 그냥 내가 왠지 싫어" : dayName === "금요일" ?
             "우~ 금요일에 시간 어때요" : dayName
         }</h4>
-        <div className = "task">남은 할 일: n 개</div>
+        <div className = "task">남은 할 일: {unDoneTodos.length} 개</div>
     </Head>
   )
 
