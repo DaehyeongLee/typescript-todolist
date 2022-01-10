@@ -12,6 +12,9 @@ interface props {
 interface checked {
   done: boolean;
 }
+interface buttonType {
+  buttonType: string;
+}
 
 const Actions = styled.div`
   display: none;
@@ -20,22 +23,30 @@ const Actions = styled.div`
   justify-content: center;
 
   font-size: 24px;
-  cursor: pointer;
   color: #dee2e6;
 `;
 
-const EditAction = styled.div`
+const ActionButton = styled.button`
   margin-right: 3px;
+  border: none;
+  background-color: white;
+  font-size: 20px;
+  color: #495057;
+  cursor: pointer;
 
-  &:hover {
-    color: #38d9a9;
-  }
-`;
-
-const DeleteAction = styled.div`
-  &:hover {
-    color: #ff6b6b;
-  }
+  ${(props: buttonType) =>
+    props.buttonType === "primary" ?
+    css`
+      &:hover {
+        color: #38d9a9;
+      }
+    ` :
+    css`
+      &:hover {
+        color: #ff6b6b;
+      }
+      `
+    }
 `;
 
 const Input = styled.input`
@@ -58,27 +69,6 @@ const TodoItemBlock = styled.div`
   }
 `;
 
-const CheckCircle = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  border: 1px solid #ced4da;
-  font-size: 24px;
-  margin-right: 20px;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ${(props: checked) =>
-    props.done &&
-    css`
-      border: 1px solid #38d9a9;
-      color: #38d9a9;
-    `}
-`;
-
 const Text = styled.div`
   flex: 1;
   font-size: 20px;
@@ -98,6 +88,42 @@ function TodoItem(props: props) {
   const deleteTodo = useStoreActions((actions) => actions.todos.deleteTodo);
   const checkTodo = useStoreActions((actions) => actions.todos.checkTodo);
   const updateTodo = useStoreActions((actions) => actions.todos.updateTodo);
+
+  const CheckCircle = styled.input.attrs({
+    type: 'checkbox',
+    checked: props.done
+  })`
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  `;
+
+  const CheckCircleStyle = styled.div`
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid #ced4da;
+    font-size: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+    background: white;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    ${(props: checked) =>
+      props.done &&
+      css`
+        border: 1px solid #38d9a9;
+        color: #38d9a9;
+      `}
+  `;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)
   const onToggle = (id: string) => {
@@ -121,9 +147,12 @@ function TodoItem(props: props) {
  
   return (
     <TodoItemBlock>
-      <CheckCircle done={props.done} onClick={() => onToggle(props.id)}>
+      {/* CheckBox input (input) - Hidden */}
+      <CheckCircle />
+      {/* CheckBox design (div) - visible */}
+      <CheckCircleStyle done={props.done} onClick={() => onToggle(props.id)}>
         {props.done && <MdDone />}
-      </CheckCircle>
+      </CheckCircleStyle>
       
       {props.id === selectedEdit ? (
         <Input onChange={onChange} value={inputValue} />
@@ -132,16 +161,16 @@ function TodoItem(props: props) {
       )}
       
       <Actions>
-        <EditAction>
+        <ActionButton buttonType={"primary"}>
           {props.id === selectedEdit ? (
             <MdOutlineCheckBox onClick={() => onSubmit(props.id)} />
           ) : (
             <MdModeEdit onClick={() => onEdit(props.id, props.text)} />
           )}
-        </EditAction>
-        <DeleteAction>
+        </ActionButton>
+        <ActionButton buttonType={"danger"}>
           <MdDelete onClick={() => onRemove(props.id)} />
-        </DeleteAction>
+        </ActionButton>
       </Actions>
     </TodoItemBlock>
   );
