@@ -18,13 +18,16 @@
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
     "typescript": "^4.5.4",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "homepage": "http://DaehyeongLee.github.io/typescript-todolist"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +50,8 @@
   "devDependencies": {
     "@types/styled-components": "^5.1.19",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.28.0"
+    "eslint-plugin-react": "^7.28.0",
+    "gh-pages": "^3.2.3",
+    "homepage": "http://DaehyeongLee.github.io/typescript-todolist"
   }
 }
